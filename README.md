@@ -30,10 +30,10 @@ The goal of this assignment is to query the data in the job and company tables u
 - Configure the data access library (knex) with the ORM (objection).
 - Declare Job and Company models in a `src/models/` folder.
 - Query the database using `Job` and `Company` models
-- Return jobs/company records as json in the `api/jobs` and `api/companies` routes
 - Create a database migration to put a foreign key on the job table (for the company id).
 - Declare the relationships between the `Company` and `Job` models
-- Return the job records that have a 'belongTo' relationship to a company record
+- Return jobs/company records as json in the `api/jobs` and `api/companies` routes
+- Company records should show related job records.
 
 
 In order to complete this assignment, you will need to:
@@ -55,8 +55,7 @@ In order to complete this assignment, you will need to:
   ```js
   const { Model } = require('objection');
 
-  //...connect to knex db... //
-
+  // ........
   Model.knex(«..appDbInstance..»)
   ```
 
