@@ -21,27 +21,21 @@ Instead of doing SQL queries, we typically interact with an ORM module that prov
 
 ###  Overview
 The goal of this assignment is to query the data in the job and company tables using Models and return data as json when one accesses the `api/jobs`(demos/api-jobs.png) / `api/companies`(demos/api-companies.png) routes.
-  - [Demo 'job' table + jobs api](demos/api-jobs.png)
-  - [Demo 'company' table + companies api](demos/api-jobs.png)
 
 
+### Requirements
 
-Summary of primary tasks:
+**Summary of primary tasks:**
 
 - Configure the data access library (knex) with the ORM (objection).
-- Declare Job and Company models.
+- Declare Job and Company models in a `src/models/` folder.
 - Query the database using `Job` and `Company` models
 - Return jobs/company records as json in the `api/jobs` and `api/companies` routes
 - Create a database migration to put a foreign key on the job table (for the company id).
 - Declare the relationships between the `Company` and `Job` models
 - Return the job records that have a 'belongTo' relationship to a company record
 
-Here is a link to the sample data that you will use to seed:
-  - [jobs data](https://github.com/muktek/assignment--fullstack-js-04-data-access/blob/master/seeddata/jobsData.js)
-  - [companies data](https://github.com/muktek/assignment--fullstack-js-04-data-access/blob/master/seeddata/companiesData.js)
 
-
-### Requirements
 In order to complete this assignment, you will need to:
 
 - [x] **Install dependencies**
@@ -63,38 +57,64 @@ In order to complete this assignment, you will need to:
 
   //...connect to knex db... //
 
-  Model.knex(«..app-db-instance..»)
+  Model.knex(«..appDbInstance..»)
   ```
 
 
-- [x] **Declare Models + export**
+- [x] **Declare Model classes + export**
   - Create a Job [model class](http://vincit.github.io/objection.js/#models) in `Job.js`
   - Create a Company [model class](http://vincit.github.io/objection.js/#models) in `Company.js`
 
 
-- [x] **Use Model query builder in `apiRouter.js`**
-  - in route-handler functions for `/api/jobs` and `/api/companies`, import models and [query for data](http://vincit.github.io/objection.js/#query-examples).
 
 - [x] **Generate a database migration and put the foreign key on jobs table**
   + A company has many jobs, and we need to tell our database about that relationship.
   + [Instructions](https://stackoverflow.com/questions/28350849/knex-migration-creating-foreign-key) for how to put a foreign key on a table in knex
 
 - [x] **Declare the relationships between the `Job` and `Company` models**
+  - you will need to follow the objection documentation and use a static class method `static get relationshipMappings(){...}`
   - [Demo of declaring relations in objection](http://vincit.github.io/objection.js/#relations)
-  - Note: instead of a static property object to configure the relations
-     `static relationMappings = {...}`
 
-     you will need to declare a static method to return the object:
+- [x] **Use Model query builder in `apiRouter.js`**
+  - in route-handler functions for `/api/jobs` and `/api/companies` routes, import models and [query for data](http://vincit.github.io/objection.js/#query-examples).
+  - Example query for products + related vendors
+    ```js
+    Product
+      .query()
+      .eager('vendors')
+      .then((records)=>{
+        //handle db results
+      })
+    ```
 
-     `static get relationshipMappings(){
-       return {...}
-      }`
 
 **NOTE:** You will probably need to rollback the migration, and reseed the data. In terminal:
 
+```sh
+knex migrate:rollback
+knex migrate:latest
+knex seed:run
 ```
-knex migrate:rollback && knex migrate:latest && knex seed:run
-```
+
+### Expected results
+
+- When I navigate to _/api/jobs_ in the browser I should receive the jobs records from the database back as json:
+
+  ![api cjobs](demos/api-jobs.png)
+
+
+- When I navigate to _/api/companies_ in the browser I should receive the companies records **AND the related records from the jobs table** from the database back as json
+
+  ![api companies](demos/api-companies.png)
+
+
+- There should be two files with model classes declared in `/src/models` -- `Company.js`, `Job.js`
+
+- There should be 3 total migration files:
+  - 1 : a migration that creates the companies table
+  - 2 : a migration that creates the jobs table
+  - 3 : a migration that creates a _company_id_ column on the jobs table as an integer + secondary key
+
 
 
 ## Setup Instructions
@@ -103,28 +123,34 @@ In Terminal:
 
 ```sh
 # (1) navigate to your project--devjobs directory
-cd ~/Documents/muktek/assignments/project--devjobs
+cd ~/muktek/assignments/project--devjobs
 
 # (2) Commit your changes from the previous demo
 git add .
 git commit -m 'committing work from part-04'
 
-# (3) You will work on the part-05-models-and-relations branch for this feature
+# (3) Commit your changes from the previous demo
+git checkout master
+git merge part-04-data-access
+
+# (4) You will work on the part-05-models-and-relations branch for this feature
 git checkout -b part-05-models-and-relations
 
 ```
 
-**Installation Checklist**
+### Installation Checklist
 
-- [x] **Have mysql-server installed**
-  - (`sudo service myqsl start` will confirm)
-  - [link to mysql-serve install instructions](mysqlserverconfig.md)
+- [x] Have postgresql installed
 
-- [x] **You have created a MYSQL user**
-  - [link to instructions](_mysqluserconfig.md)
+- [x] You have an application postgres database
 
-- [x] **Have knex installed globally**
-  - `npm install -g knex`
+- [x] You have an application postgres database user + db user password
 
-### Conceptual Understanding
-- Why do we creett
+- [x] Have knex installed globally
+
+### Resources
+
+Seed Data:
+
+  - [jobs data](https://github.com/muktek/assignment--fullstack-js-04-data-access/blob/master/seeddata/jobsData.js)
+  - [companies data](https://github.com/muktek/assignment--fullstack-js-04-data-access/blob/master/seeddata/companiesData.js)
