@@ -30,7 +30,8 @@ The goal of this assignment is to query the data in the job and company tables u
 - Configure the data access library (knex) with the ORM (objection).
 - Declare Job and Company models in a `src/models/` folder.
 - Query the database using `Job` and `Company` models
-- Create a database migration to put a foreign key on the job table (for the company id).
+- Create a database migration to put a foreign key on the job table (for the company_id).
+- Seed jobs data
 - Declare the relationships between the `Company` and `Job` models
 - Return jobs/company records as json in the `api/jobs` and `api/companies` routes
 - Company records should show related job records.
@@ -65,10 +66,25 @@ In order to complete this assignment, you will need to:
   - Create a Company [model class](http://vincit.github.io/objection.js/#models) in `Company.js`
 
 
+- [x] **Generate a database migration to create the jobs table**
+  + Columns for this migration:
+  ```
+  id            -   integer (auto increments)
+  title         -   string
+  description   -   text
+  location      -   string
+  salary        -   salary
+  full_time     -   boolean
+  ```
 
 - [x] **Generate a database migration and put the foreign key on jobs table**
   + A company has many jobs, and we need to tell our database about that relationship.
   + [Instructions](https://stackoverflow.com/questions/28350849/knex-migration-creating-foreign-key) for how to put a foreign key on a table in knex
+
+- [x] **Seed the jobs data**
+  + A link to the [jobs data](seeddata/jobsData)
+  + [Instructions](https://stackoverflow.com/questions/28350849/knex-migration-creating-foreign-key) for how to put a foreign key on a table in knex
+
 
 - [x] **Declare the relationships between the `Job` and `Company` models**
   - you will need to follow the objection documentation and use a static class method `static get relationshipMappings(){...}`
@@ -76,11 +92,11 @@ In order to complete this assignment, you will need to:
 
 - [x] **Use Model query builder in `apiRouter.js`**
   - in route-handler functions for `/api/jobs` and `/api/companies` routes, import models and [query for data](http://vincit.github.io/objection.js/#query-examples).
-  - Example query for products + related vendors
+  - Example query for product + its vendors
     ```js
     Product
       .query()
-      .eager('vendors')
+      .eager('vendor')
       .then((records)=>{
         //handle db results
       })
@@ -151,5 +167,5 @@ git checkout -b part-05-models-and-relations
 
 Seed Data:
 
-  - [jobs data](https://github.com/muktek/assignment--fullstack-js-04-data-access/blob/master/seeddata/jobsData.js)
+  - [jobs data](seeddata/jobsData.js)
   - [companies data](https://github.com/muktek/assignment--fullstack-js-04-data-access/blob/master/seeddata/companiesData.js)
