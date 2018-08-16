@@ -17,10 +17,22 @@ You are going to build a full stack web application with node.js + React. In ord
 ## The Assignment
 For this assignment, we will focus on configuring the **models** and **relations** in our application through an ORM (object relational mapper).
 
-Instead of doing SQL queries, we typically interact with an ORM module that provides us with a 'model' of each table. A model is simply an object-oriented representation of a database table. The ORM module we are using is called  [objection.js](http://vincit.github.io/objection.js/#models), and as you complete this assignment, you will see that it provides utility methods for fetching, inserting, and deleting data as well as providing helper methods for combining queries on our database tables.
+Instead of doing SQL queries, we typically interact with an ORM module that provides us with a 'model' of each table. A model is simply an object-oriented representation of a database table. The ORM module we are using is called  [objection.js](http://vincit.github.io/objection.js/#models), and as you complete this assignment, you will see that it:
+  + allows us to elegantly declare relations between tables
+  + provides useful methods for fetching, inserting, and deleting data
 
 ###  Overview
-The goal of this assignment is to query the data in the job and company tables using Models and return data as json when one accesses the `api/jobs`(demos/api-jobs.png) / `api/companies`(demos/api-companies.png) routes.
+
+The goal of this assignment:
+
+  + Declare a Job model and a Company model.
+
+  + Query and modify records from the jobs table and companies table using the Job model or Company model  
+
+  + Declare the entity relation between the Job model and Company model
+
+  + return data as json when one accesses the relevant `api/jobs`(demos/api-jobs.png) / `api/companies`(demos/api-companies.png) routes.
+
 
 
 ### Requirements
