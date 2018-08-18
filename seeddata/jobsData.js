@@ -21,7 +21,7 @@ const jobDataRows = [
     location: 'Monterrey',
     salary: 9000,
     full_time: false,
-    companyId: Math.floor(Math.random()*4)+1
+    company_id: Math.floor(Math.random()*4)+1
   },
   {
     title: 'Mid-Level Front End Engineer',
