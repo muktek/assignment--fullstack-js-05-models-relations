@@ -85,7 +85,7 @@ In order to complete this assignment, you will need to:
   title         -   string
   description   -   text
   location      -   string
-  salary        -   salary
+  salary        -   integer
   full_time     -   boolean
   ```
 
@@ -94,7 +94,7 @@ In order to complete this assignment, you will need to:
   + [Instructions](https://stackoverflow.com/questions/28350849/knex-migration-creating-foreign-key) for how to put a foreign key on a table in knex
 
 - [x] **Seed the jobs data**
-  + A link to the [jobs data](seeddata/jobsData)
+  + A link to the [jobs data](seeddata/jobsData.js)
   + [Instructions](https://stackoverflow.com/questions/28350849/knex-migration-creating-foreign-key) for how to put a foreign key on a table in knex
 
 
